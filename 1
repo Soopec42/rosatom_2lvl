@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+
+
+int main() {
+	
+	long n, m, max = 1000001;
+	unordered_map<int, vector<int>> mas;
+
+	cin >> n >> m;
+	for (long i = 0; i < m; i++)
+	{
+		long a, b;
+		cin >> a >> b;
+		mas[a].push_back(b);
+		mas[b].push_back(a);
+	}
+
+	for (long i = 1; i <= n; i++)
+	{
+		if (mas[i].size() < max)
+			max = mas[i].size();
+	}
+	cout << max;
+
+}
