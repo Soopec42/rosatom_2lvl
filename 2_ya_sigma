@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+
+
+int main() {
+	
+	int n, sum = 0, otv = 100000000;;
+	cin >> n;
+	vector<pair<int, int>> mas(n);
+
+
+	for (int i = 0; i < n; i++)
+	{
+
+		int a, b;
+		cin >> a >> b;
+
+		mas[i].first = a;
+		mas[i].second = b;
+	}
+	vector<int> obj(n);
+
+	for (int i = 0; i < n; i++)
+	{
+		obj[i] = i;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		sum += mas[i].first;
+	}
+	do {
+		
+		int ot = 0;
+		int summa = sum;
+		for (int i = 0; i < n; i++)
+		{
+			summa -= mas[obj[i]].first;
+			ot += mas[obj[i]].second * summa;
+
+		}
+		if (ot < otv)
+		{
+			otv = ot;
+
+		}
+
+
+	} while (next_permutation(obj.begin(), obj.end()));
+	cout << otv;
+}
