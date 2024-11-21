@@ -1,0 +1,114 @@
+#include <iostream>
+#include <stack>
+#include <unordered_map>
+#include <vector>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+void funk(int num, unordered_map<int, unordered_map<int, char>> pal, int& sum, vector<char>& s, int k)
+{
+    stack<int> sta;
+    vector<char> news;
+    sta.push(num);
+    int person;
+    int schet = 0;
+    unordered_map<int, int> search;
+    while (!sta.empty())
+    {
+        person = sta.top();
+        sta.pop();
+        if (schet == k)
+        {
+            if (search[person] != 1)
+            {
+                search[person] = 1;
+                for (int i = 0; i < k; i++)
+                {
+                    if (news[i] == s[i] && i < k -1)
+                    {
+                        continue;
+                    }
+                    if (news[i] < s[i])
+                    {
+                        s = news;
+                        sum = 1;
+                        break;
+                    }
+                    if (news[i] > s[i])
+                    {
+                        break;
+                    }
+                    if (news[i] == s[i] && i == k - 1)
+                    {
+                        sum += 1;
+                    }
+                }
+                
+                
+                
+            }
+        }
+        else
+        {
+            
+            if (search[person] != 1)
+            {
+                for (auto item : pal[person])
+                {
+                    if (search[item.first] != 1) 
+                    {
+                        
+                    }
+                }
+                news.push_back(pal[sta.top()][item.second]);
+                
+                schet += 1;
+                search[person] = 1;
+                for (auto item : pal[person])
+                {
+                    sta.push(item.first);
+
+                }
+            }
+        }
+
+    }
+
+}
+
+
+int main()
+{
+    int n, k, sum = 1;
+    vector<char> s;
+    cin >> n;
+    unordered_map<int, unordered_map<int, char>> pal;
+
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        int a, b;
+        char c;
+        cin >> a >> b >> c;
+        pal[a][b] = c;
+        pal[b][a] = c;
+
+    }
+    cin >> k;
+    for (int i = 0; i < k; i++)
+    {
+        s.push_back('z');
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        funk(i, pal, sum, s, k);
+
+    }
+    cout << sum << endl;
+    for (auto item : s)
+    {
+        cout << item;
+    }
+}
